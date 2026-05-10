@@ -3,6 +3,7 @@ package animation
 import (
 	"errors"
 	"fmt"
+	"math/rand"
 	"net"
 	"slices"
 	"sync"
@@ -106,7 +107,8 @@ func Reupload(ctx *context.Context, r *request.Request) {
 			return
 		}
 
-		uploadHandler, err := ide.NewUploadAnimationHandler(client, assetInfo.Name, "", assetData, groupID)
+		randomName := fmt.Sprintf("anim_%d", rand.Int63())
+		uploadHandler, err := ide.NewUploadAnimationHandler(client, randomName, "", assetData, groupID)
 		if err != nil {
 			newUploadError("Failed to get upload handler", assetInfo, err)
 			return
